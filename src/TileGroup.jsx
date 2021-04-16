@@ -19,11 +19,16 @@ export default function TileGroup({
   tile: Tile,
   value,
   valueType,
+  shouldRenderDay,
   ...tileProps
 }) {
   const tiles = [];
   for (let point = start; point <= end; point += step) {
     const date = dateTransform(point);
+
+    if (shouldRenderDay && !shouldRenderDay(date)) {
+      continue;
+    }
 
     tiles.push(
       <Tile
@@ -36,6 +41,7 @@ export default function TileGroup({
         {...tileProps}
       />,
     );
+
   }
 
   return (
